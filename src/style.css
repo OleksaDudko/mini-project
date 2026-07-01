@@ -1,0 +1,52 @@
+.container{
+    width: 1200px;
+    margin: 0 auto;
+    outline: 1px solid black;
+}
+
+form{
+    width: 500px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 100px;
+}
+
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+img{
+    display: block;
+    width: 100%;
+}
+
+.photo-card{
+    outline: 1px solid gray;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 500ms;
+}
+
+.photo-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.stats{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.stats-item{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
