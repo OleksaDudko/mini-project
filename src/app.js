@@ -1,3 +1,8 @@
+import * as basicLightbox from 'basiclightbox'
+import 'basiclightbox/dist/basicLightbox.min.css';
+
+let instance = null
+
 const formEl = document.querySelector(".search-form")
 const listEl = document.querySelector(".gallery")
 const elementsEl = document.querySelector(".elements")
@@ -32,7 +37,7 @@ function render(arr) {
     const item = arr.map(({webformatURL, largeImageURL, likes, views, comments, downloads, tags}) => {
         return `
         <li class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" />
+  <img src="${webformatURL}" alt="${tags}" data-src="${largeImageURL}" />
   <div class="stats">
     <p class="stats-item">
       <i class="material-icons">thumb_up</i>
@@ -57,7 +62,6 @@ function render(arr) {
 }
 
 const observer = new IntersectionObserver((entry) => {
-    console.log(entry);
     entry.forEach(async (e) => {
         if (e.isIntersecting && search !== "") {
             page += 1
@@ -70,3 +74,38 @@ const observer = new IntersectionObserver((entry) => {
 })
 
 observer.observe(elementsEl)
+
+listEl.addEventListener("click", (e) => {
+    if (e.target.nodeName !== "IMG") {
+        return
+    }   
+
+    const largeImg = e.target.dataset.src
+
+    instance = basicLightbox.create(`
+        <div class="modal">
+            <img src="${largeImg}" alt="#"/>
+        </div>
+    `)
+
+    instance.show()
+
+    if (instance) {
+        window.addEventListener("keydown", closeModal)
+    }
+
+})
+
+
+if (!instance) {
+    window.removeEventListener("keydown", closeModal)
+}
+
+function closeModal(e) {
+
+    if (e.key === "Escape" && instance) {
+        instance.close()
+        instance = null
+    }
+
+}
