@@ -66,6 +66,7 @@ const observer = new IntersectionObserver((entry) => {
         if (e.isIntersecting && search !== "") {
             page += 1
             const res = await getImg(search, page)
+            render(res.hits)
         }
     })
      
